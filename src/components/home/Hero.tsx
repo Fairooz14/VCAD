@@ -40,10 +40,10 @@ export function Hero() {
 
         <div className="relative">
           <Image
-            src="/images/hero-banner.webp"
+            src="/images/hero_banner.png"
             alt="VCAD disciplines: fashion, photography, graphic design, media, business, management and marketing"
-            width={1800}
-            height={1726}
+            width={2854}
+            height={2720}
             preload
             sizes="(max-width: 1024px) 90vw, 50vw"
             className="h-auto w-full lg:ml-auto"
