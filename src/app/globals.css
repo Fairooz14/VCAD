@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/*
+ * VCAD design tokens — sampled from the Figma token sheet (see /Design.png).
+ * Tailwind v4 is CSS-first: these @theme variables generate matching utilities.
+ *   --color-*  -> bg-* / text-* / border-*
+ *   --radius-* -> rounded-*
+ *   --font-*   -> font-*
+ */
+@theme {
+  /* Surfaces */
+  --color-base: #030a2e;
+  --color-deep: #020928;
+  --color-card: #051251;
+  --color-card-alt: #040d3d;
+  --color-navy: #061665;
+  --color-line: #384584; /* "Border" token */
+
+  /* Accent */
+  --color-pink: #ff379e;
+  --color-magenta: #e018e0;
+  --color-magenta-lt: #e646e6;
+  --color-plum: #912491;
+  --color-blue: #2262ee;
+  --color-cyan: #00ffd2;
+
+  /* Light & text */
+  --color-text: #ebecf3;
+  --color-sky: #8ec8ee;
+  --color-pale: #d7e2fb;
+  --color-pale-2: #ecf2fd;
+  --color-ice: #ebf7ff;
+
+  /* Radii */
+  --radius-card: 12px;
+  --radius-pill: 34px;
+  --radius-button: 20px;
+  --radius-chip: 4px;
+}
+
+/* Font token references the next/font CSS variable, so it must be inline
+ * (otherwise Tailwind would emit the literal string, not resolve the var). */
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* offset for the sticky header when jumping to in-page anchors */
+    scroll-padding-top: 6rem;
+  }
+  body {
+    background-color: var(--color-base);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background-color: var(--color-pink);
+    color: #fff;
+  }
+}
