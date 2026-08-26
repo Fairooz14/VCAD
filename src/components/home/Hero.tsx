@@ -15,12 +15,12 @@ export function Hero() {
       <Container className="grid items-center gap-10 lg:grid-cols-[0.85fr_1fr] lg:gap-12">
         <div className="flex flex-col">
           {/* Hero display · Inter 68 Bold, uppercase, white */}
-          <h1 className="text-5xl font-bold uppercase leading-[1.03] tracking-tight text-white sm:text-6xl lg:text-[99px]">
+          <h1 className="text-5xl font-bold uppercase leading-[1.03] tracking-tight text-white sm:text-6xl lg:text-[110px]">
             <span className="block">Welcome</span>
             <span className="block">to VCAD</span>
           </h1>
 
-          <p className="mt-6 max-w-md text-[18px] leading-[1.6] text-text/70 sm:mt-7">
+          <p className="mt-6 max-w-[586px] text-[18px] leading-[1.6] text-text/70 sm:mt-7">
             Our team at Victoria College of Arts and Design is passionate about
             creating innovative projects and generating new ideas. We work with a
             variety of experts and esteemed companies using a collaborative
@@ -32,7 +32,7 @@ export function Hero() {
               label left + trailing arrow (buttons radius · 20px) */}
           <Link
             href="/courses"
-            className="group mt-8 inline-flex h-14 w-80 max-w-full items-center justify-between gap-[10px] self-start rounded-button border border-[#ebecf3] bg-card px-4 text-base font-medium text-white transition hover:border-pink hover:bg-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink sm:mt-9"
+            className="group mt-8 inline-flex h-14 w-80 max-w-full items-center justify-between gap-[10px] self-start  border border-[#ebecf3] bg-card px-4 text-base font-medium text-white transition hover:border-pink hover:bg-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink sm:mt-9"
           >
             Explore Courses
             <ArrowRight className="size-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
