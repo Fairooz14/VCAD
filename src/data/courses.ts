@@ -21,7 +21,7 @@ export const courses: Course[] = [
     duration: "3 Years",
     studyMode: "Full-time",
     summary:
-      "Explore creative practice across the theoretical, practical, and technical foundations of fashion, and build the visual communication skills to bring your ideas to life.",
+      "This course introduces students to creative practice, focusing on theoretical, practical, and technical components. In early stages, students develop essential skills for academic success and personal growth, emphasizing reflection and technical skills like visual communication. ",
     description:
       "This course introduces students to creative practice, focusing on theoretical, practical, and technical components. In early stages, students develop essential skills for academic success and personal growth, emphasizing reflection and technical skills like visual communication.",
     image: "/images/courses.webp",

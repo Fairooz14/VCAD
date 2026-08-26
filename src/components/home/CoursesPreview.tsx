@@ -38,8 +38,8 @@ export function CoursesPreview({ courses }: { courses: Course[] }) {
         {/* Header row: eyebrow + title on the left, button top-right */}
         <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between lg:mb-16">
           <div className="flex flex-col gap-4">
-            <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-pink">
-              <span className="h-px w-6 bg-pink" aria-hidden />
+            <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-[#E646E6]">
+              {/* <span className="h-px w-6 bg-pink" aria-hidden /> */}
               Our Courses
             </span>
             <h2 className="text-balance text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-[2.75rem]">
@@ -48,7 +48,7 @@ export function CoursesPreview({ courses }: { courses: Course[] }) {
           </div>
           <Link
             href="/courses"
-            className="group inline-flex h-14 shrink-0 items-center justify-between gap-4 self-start rounded-none border border-[#ebecf3] bg-transparent px-6 text-base font-medium text-white transition hover:border-pink hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink md:self-auto"
+            className="group inline-flex h-14 shrink-0 items-center justify-between gap-4 self-start rounded-none border border-[#ebecf3] bg-[#051251] px-6 text-base font-medium text-white transition hover:border-pink hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink md:self-auto"
           >
             View Courses
             <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
@@ -87,7 +87,7 @@ export function CoursesPreview({ courses }: { courses: Course[] }) {
                   >
                     <div className="overflow-hidden">
                       <div className="flex gap-3 pb-6">
-                        <ArrowRight className="mt-1 size-4 shrink-0 text-pink" />
+                        <ArrowRight className="mt-1 size-6 shrink-0 text-pink" />
                         <p className="max-w-[555px] text-pretty text-lg font-normal leading-[1.6] text-text">
                           {course.summary}
                         </p>
