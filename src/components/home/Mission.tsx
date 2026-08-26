@@ -38,9 +38,9 @@ export function Mission() {
 
           {/* Three overlapping tilted images spread across the section */}
           <div className="absolute inset-0 z-0">
-            {/* Bottom-left: tilted photo (man with laptop) */}
-            <div className="absolute bottom-0 left-0 w-[35%] max-w-[420px] -rotate-6">
-              <div className="relative aspect-[3/2] overflow-hidden rounded-lg shadow-2xl">
+            {/* Bottom-left: man with laptop - white border, tilted left */}
+            <div className="absolute bottom-0 left-[5%] w-[32%] max-w-[380px] -rotate-[8deg]">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-lg border-[5px] border-white bg-white shadow-2xl">
                 <Image
                   src="/images/mission_left.jpg"
                   alt="Student working on design project"
@@ -51,27 +51,27 @@ export function Mission() {
               </div>
             </div>
 
-            {/* Center: tilted photo (woman painting) */}
-            <div className="absolute bottom-8 left-[30%] w-[28%] max-w-[350px] rotate-6 lg:left-[35%]">
-              <div className="relative aspect-[2/3] overflow-hidden rounded-lg shadow-2xl">
+            {/* Center: woman painting - NO border, tilted right, overlaps others */}
+            <div className="absolute bottom-[10%] left-[32%] w-[26%] max-w-[320px] rotate-[8deg] lg:bottom-[15%] lg:left-[35%]">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-lg shadow-2xl">
                 <Image
                   src="/images/mission_middle.jpg"
                   alt="Student in creative practice"
                   fill
-                  sizes="30vw"
+                  sizes="28vw"
                   className="object-cover"
                 />
               </div>
             </div>
 
-            {/* Top-right: straight photo with white border (fashion studio) */}
-            <div className="absolute right-0 top-12 w-[42%] max-w-[520px] rotate-3 lg:top-0">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-lg border-8 border-white bg-white shadow-2xl">
+            {/* Top-right: fashion studio - thick white border, slight tilt right */}
+            <div className="absolute right-[5%] top-[5%] w-[40%] max-w-[500px] rotate-[4deg] lg:right-0 lg:top-0">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-lg border-[12px] border-white bg-white shadow-2xl">
                 <Image
                   src="/images/mission_right.jpg"
                   alt="Students collaborating in fashion studio"
                   fill
-                  sizes="45vw"
+                  sizes="42vw"
                   className="object-cover"
                 />
               </div>
