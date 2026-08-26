@@ -11,20 +11,11 @@ import { cn } from "@/lib/utils";
 /**
  * Site header — shared across every page via the root layout. Built to the
  * Figma frame: the college wordmark on the left, the uppercase primary nav and
- * a menu button on the right. It is transparent over the hero and gains a
- * blurred, bordered background once the page scrolls (or the menu is open).
- * The menu button opens a full-width overlay listing the same links.
+ * a menu button on the right, sitting on the solid #040D3D ("card-alt") navbar
+ * surface. The menu button opens a full-width overlay listing the same links.
  */
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   // Lock body scroll while the menu overlay is open.
   useEffect(() => {
@@ -35,14 +26,7 @@ export function Header() {
   }, [menuOpen]);
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
-        scrolled || menuOpen
-          ? "border-b border-line bg-base/85 backdrop-blur-md"
-          : "border-b border-transparent",
-      )}
-    >
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-card-alt">
       <Container className="flex h-16 items-center justify-between gap-4 lg:h-20">
         <Brand onNavigate={() => setMenuOpen(false)} />
 
@@ -74,7 +58,7 @@ export function Header() {
       {/* Overlay menu — opened by the menu button at every breakpoint. */}
       <div
         className={cn(
-          "overflow-hidden border-t border-line bg-base/95 backdrop-blur-md transition-[max-height] duration-300",
+          "overflow-hidden border-t border-line bg-card-alt transition-[max-height] duration-300",
           menuOpen ? "max-h-[80vh]" : "max-h-0 border-t-transparent",
         )}
       >
