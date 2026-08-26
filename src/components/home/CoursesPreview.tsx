@@ -4,18 +4,15 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Button } from "@/components/ui/Button";
-import { Pill } from "@/components/ui/Pill";
-import { Plus, Minus, ArrowUpRight } from "@/lib/icons";
+import { ArrowRight } from "@/lib/icons";
 import { courseTitle, cn } from "@/lib/utils";
 import type { Course } from "@/lib/types";
 
 /**
- * "Explore our courses" — an interactive accordion driven entirely by the course
- * data. Opening an item reveals its summary and swaps the preview image, so the
- * section stays in sync automatically as courses are added or reordered.
- * Single-open accordion; the featured course starts expanded.
+ * "Explore our creative courses" — an interactive accordion driven entirely by
+ * the course data. Opening an item reveals its summary and swaps the preview
+ * image, so the section stays in sync automatically as courses are added or
+ * reordered. Single-open accordion; the featured course starts expanded.
  */
 export function CoursesPreview({ courses }: { courses: Course[] }) {
   const initial = courses.findIndex((c) => c.featured);
@@ -23,85 +20,58 @@ export function CoursesPreview({ courses }: { courses: Course[] }) {
   const active = courses[openIndex] ?? courses[0];
 
   return (
-    <section id="courses" className="scroll-mt-24 py-20 lg:py-28">
-      <Container>
-        <SectionHeading
-          eyebrow="What you'll study"
-          title="Explore our courses"
-          description="Degree and diploma courses built with industry, across fashion, design, media, marketing and business."
-          action={
-            <Button href="/courses" variant="secondary" withArrow>
-              View all courses
-            </Button>
-          }
-        />
+    <section id="courses" className="relative scroll-mt-24 overflow-hidden py-20 lg:py-28">
+      {/* Background vertical line strips */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="relative mx-auto h-full w-full max-w-[1440px]">
+          {[...Array(8)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute top-0 bottom-0 w-px bg-line/20"
+              style={{ left: `${(i + 1) * 11.11}%` }}
+            />
+          ))}
+        </div>
+      </div>
+
+      <Container className="relative">
+        {/* Header row: eyebrow + title on the left, button top-right */}
+        <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between lg:mb-16">
+          <div className="flex flex-col gap-4">
+            <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-pink">
+              <span className="h-px w-6 bg-pink" aria-hidden />
+              Our Courses
+            </span>
+            <h2 className="text-balance text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-[2.75rem]">
+              Explore our creative courses
+            </h2>
+          </div>
+          <Link
+            href="/courses"
+            className="group inline-flex h-14 shrink-0 items-center justify-between gap-4 self-start rounded-none border border-[#ebecf3] bg-transparent px-6 text-base font-medium text-white transition hover:border-pink hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink md:self-auto"
+          >
+            View Courses
+            <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-14">
-          {/* Preview image — reflects the open course */}
-          <div className="relative order-2 lg:order-1">
-            <div className="sticky top-28 overflow-hidden rounded-card border border-line">
-              <div className="relative aspect-[4/3] w-full">
-                {active && (
-                  <Image
-                    key={active.slug}
-                    src={active.image}
-                    alt={courseTitle(active)}
-                    fill
-                    sizes="(max-width: 1024px) 90vw, 45vw"
-                    className="object-cover"
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-base/80 via-base/10 to-transparent" />
-                {active && (
-                  <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-center gap-2 p-5">
-                    <Pill tone="solid">{active.school}</Pill>
-                    <Pill tone="muted">{active.duration}</Pill>
-                    <Pill tone="muted">{active.studyMode}</Pill>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Accordion */}
-          <ul className="order-1 flex flex-col lg:order-2">
+          {/* Accordion — no rule above the first item or below the last */}
+          <ul className="order-1 flex flex-col divide-y divide-line">
             {courses.map((course, i) => {
               const open = i === openIndex;
               return (
-                <li key={course.slug} className="border-b border-line first:border-t">
+                <li key={course.slug}>
                   <h3>
                     <button
                       type="button"
                       onClick={() => setOpenIndex(open ? -1 : i)}
                       aria-expanded={open}
                       aria-controls={`course-panel-${course.slug}`}
-                      className="group flex w-full items-center gap-4 py-5 text-left"
+                      className="group flex w-full items-center py-5 text-left"
                     >
-                      <span
-                        className={cn(
-                          "text-xs font-semibold tabular-nums transition-colors",
-                          open ? "text-pink" : "text-text/40",
-                        )}
-                      >
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span
-                        className={cn(
-                          "flex-1 text-lg font-semibold transition-colors sm:text-xl",
-                          open ? "text-white" : "text-text/80 group-hover:text-white",
-                        )}
-                      >
+                      <span className="text-2xl font-semibold leading-[1.2] text-text">
                         {courseTitle(course)}
-                      </span>
-                      <span
-                        className={cn(
-                          "flex size-8 shrink-0 items-center justify-center rounded-full border transition",
-                          open
-                            ? "border-pink bg-pink text-white"
-                            : "border-line text-text/70 group-hover:border-pink",
-                        )}
-                      >
-                        {open ? <Minus className="size-4" /> : <Plus className="size-4" />}
                       </span>
                     </button>
                   </h3>
@@ -116,17 +86,11 @@ export function CoursesPreview({ courses }: { courses: Course[] }) {
                     )}
                   >
                     <div className="overflow-hidden">
-                      <div className="flex flex-col gap-4 pb-6 pl-8">
-                        <p className="max-w-prose text-pretty text-sm leading-relaxed text-text/70 sm:text-base">
+                      <div className="flex gap-3 pb-6">
+                        <ArrowRight className="mt-1 size-4 shrink-0 text-pink" />
+                        <p className="max-w-[555px] text-pretty text-lg font-normal leading-[1.6] text-text">
                           {course.summary}
                         </p>
-                        <Link
-                          href={`/courses/${course.slug}`}
-                          className="inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-pink transition hover:gap-2.5"
-                        >
-                          Course details
-                          <ArrowUpRight className="size-4" />
-                        </Link>
                       </div>
                     </div>
                   </div>
@@ -134,6 +98,24 @@ export function CoursesPreview({ courses }: { courses: Course[] }) {
               );
             })}
           </ul>
+
+          {/* Preview image — reflects the open course */}
+          <div className="relative order-2">
+            <div className="sticky top-28 overflow-hidden rounded-card border border-line">
+              <div className="relative aspect-[6/5] w-full">
+                {active && (
+                  <Image
+                    key={active.slug}
+                    src={active.image}
+                    alt={courseTitle(active)}
+                    fill
+                    sizes="(max-width: 1024px) 90vw, 45vw"
+                    className="object-cover"
+                  />
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </Container>
     </section>
