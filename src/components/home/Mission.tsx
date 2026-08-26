@@ -35,10 +35,10 @@ export function Mission() {
 
           {/* Right: Three images — two tilted, one straight with border */}
           <div className="relative grid grid-cols-2 gap-6">
-            {/* Bottom-left: tilted photo (man with laptop) */}
-            <div className="relative col-span-1 row-start-2 aspect-[4/5] -rotate-6 overflow-hidden rounded-lg">
+            {/* Bottom-left: tilted photo (man with laptop) - already tilted in source */}
+            <div className="relative col-span-1 row-start-2 aspect-[3/2] overflow-hidden rounded-lg">
               <Image
-                src="/images/mission-1.webp"
+                src="/images/mission_left.jpg"
                 alt="Student working on design project"
                 fill
                 sizes="(max-width: 1024px) 45vw, 25vw"
@@ -46,10 +46,10 @@ export function Mission() {
               />
             </div>
 
-            {/* Center: tilted photo (woman painting) */}
-            <div className="relative col-span-1 col-start-2 row-span-2 aspect-[3/4] rotate-6 self-center overflow-hidden rounded-lg">
+            {/* Center: tilted photo (woman painting) - already tilted in source */}
+            <div className="relative col-span-1 col-start-2 row-span-2 aspect-[2/3] self-center overflow-hidden rounded-lg">
               <Image
-                src="/images/mission-2.webp"
+                src="/images/mission_middle.jpg"
                 alt="Student in creative practice"
                 fill
                 sizes="(max-width: 1024px) 45vw, 25vw"
@@ -57,10 +57,10 @@ export function Mission() {
               />
             </div>
 
-            {/* Top-right: straight photo with white border (fashion studio) */}
-            <div className="relative col-span-1 col-start-2 row-start-1 aspect-[4/3] overflow-hidden rounded-lg border-8 border-white bg-white shadow-xl">
+            {/* Top-right: straight photo with white border (fashion studio) - already tilted in source */}
+            <div className="relative col-span-1 col-start-2 row-start-1 aspect-[2/3] overflow-hidden rounded-lg border-8 border-white bg-white shadow-xl">
               <Image
-                src="/images/mission-3.webp"
+                src="/images/mission_right.jpg"
                 alt="Students collaborating in fashion studio"
                 fill
                 sizes="(max-width: 1024px) 45vw, 25vw"
