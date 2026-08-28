@@ -44,6 +44,8 @@ The brief called for Homepage -> Courses -> Course Details, with *quality over q
 
 All three pages are implemented and shippable. Course content is seeded with realistic placeholder data pending final copy and imagery.
 
+**Note on Course Details tabs:** The pill-tab navigation includes three tabs ("Course Overview", "Course Structure & Details", "Admissions & Key Details"), but only the "Course Overview" tab is fully implemented with the Course Information grid. The other two tabs are placeholder stubs pending their UI designs. Given more time, I would complete these tabs and refactor the codebase to follow a more structured architecture - extracting reusable functions, organizing utilities separately, and establishing clearer separation of concerns across the project. Due to time constraints, I focused on delivering the core functionality and exact Figma implementation rather than comprehensive upfront planning and architectural refinement.
+
 ---
 
 ## One decision the designs didn't specify: button styling for new sections
@@ -58,9 +60,11 @@ The Course Details page required two new sections (Course Specification banner a
 
 ## What I'd do next given more time
 
-- **Wire real course content and imagery** - Replace seeded placeholder copy in `src/data/courses.ts` with final WEB-594 content and drop real assets into `public/images/`. The data model already has fields for modules, entry requirements, careers, and key facts.
+- **Complete the remaining Course Details tabs** - Build out the "Course Structure & Details" and "Admissions & Key Details" tab panels once their UI is provided. The tab infrastructure is in place; adding new panels is a straightforward extension.
 
-- **Complete the remaining Course Details tabs** - Build out the "/ Course Structure & Details" and "/ Admissions & Key Details" tab panels once their UI is provided. The tab infrastructure is in place; adding new panels is a straightforward extension.
+- **Refactor for better architecture** - Extract reusable utility functions, organize helpers and constants into separate modules, establish clearer separation of concerns, and create a more maintainable structure. Due to time constraints, I prioritized delivering exact Figma implementation and core functionality over comprehensive upfront architectural planning.
+
+- **Wire real course content and imagery** - Replace seeded placeholder copy in `src/data/courses.ts` with final WEB-594 content and drop real assets into `public/images/`. The data model already has fields for modules, entry requirements, careers, and key facts.
 
 - **Replace in-file data with a real backend/CMS** - The async accessors in `src/data/courses.ts` provide a clean seam; swapping to Contentful/Sanity/a REST API wouldn't touch the page components. Pages already handle loading/empty/not-found states.
 
