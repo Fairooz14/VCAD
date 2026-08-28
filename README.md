@@ -120,14 +120,13 @@ Add to `next.config.ts`:
 ```typescript
 const config = {
   output: 'export',
-  basePath: '/your-repo-name',
+  basePath: '/VCAD',
   images: {
     unoptimized: true,
   },
 };
 ```
 
-Replace `your-repo-name` with your actual repository name.
 
 ### 2. Build the static site
 
