@@ -8,12 +8,27 @@ import { ArrowRight } from "@/lib/icons";
 import { courseTitle, cn } from "@/lib/utils";
 import type { Course } from "@/lib/types";
 
-/**
- * "Explore our creative courses" — an interactive accordion driven entirely by
- * the course data. Opening an item reveals its summary and swaps the preview
- * image, so the section stays in sync automatically as courses are added or
- * reordered. Single-open accordion; the featured course starts expanded.
- */
+function ArrowIcon({ direction }: { direction: "left" | "right" }) {
+  return (
+    <span
+      aria-hidden
+      style={{
+        display: "inline-block",
+        width: "22px",
+        height: "22px",
+        backgroundColor: "currentColor",
+        maskImage: `url(/images/arrow_${direction}.png)`,
+        maskSize: "contain",
+        maskRepeat: "no-repeat",
+        maskPosition: "center",
+        WebkitMaskImage: `url(/images/arrow_${direction}.png)`,
+        WebkitMaskSize: "contain",
+        WebkitMaskRepeat: "no-repeat",
+        WebkitMaskPosition: "center",
+      }}
+    />
+  );
+}
 export function CoursesPreview({ courses }: { courses: Course[] }) {
   const initial = courses.findIndex((c) => c.featured);
   const [openIndex, setOpenIndex] = useState(initial === -1 ? 0 : initial);
@@ -51,7 +66,7 @@ export function CoursesPreview({ courses }: { courses: Course[] }) {
             className="group inline-flex h-14 shrink-0 items-center justify-between gap-4 self-start rounded-none border border-[#ebecf3] bg-[#051251] px-6 text-base font-medium text-white transition hover:border-pink hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink md:self-auto"
           >
             View Courses
-            <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
+            <ArrowIcon direction="right" />
           </Link>
         </div>
 
@@ -99,7 +114,7 @@ export function CoursesPreview({ courses }: { courses: Course[] }) {
             })}
           </ul>
 
-          {/* Preview image — reflects the open course */}
+          {/* Preview image — reflects the open course
           <div className="relative order-2">
             <div className="sticky top-28 overflow-hidden rounded-card border border-line">
               <div className="relative aspect-[6/5] w-full">
@@ -115,7 +130,26 @@ export function CoursesPreview({ courses }: { courses: Course[] }) {
                 )}
               </div>
             </div>
+          </div> */}
+
+          {/* Preview image — static */}
+          <div className="relative order-2">
+            <div className="sticky top-28 overflow-hidden rounded-card border border-line">
+              <div className="relative aspect-[6/5] w-full">
+                {active && (
+                  <Image
+                    src="/images/courses.webp"
+                    alt={courseTitle(active)}
+                    fill
+                    sizes="(max-width: 1024px) 90vw, 45vw"
+                    className="object-cover"
+                  />
+                )}
+              </div>
+            </div>
           </div>
+
+
         </div>
       </Container>
     </section>

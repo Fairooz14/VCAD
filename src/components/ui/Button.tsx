@@ -84,29 +84,3 @@ export function Button({
     </Link>
   );
 }
-
-/** <button> variant for client-side actions (e.g. carousel CTAs, form submits). */
-export function ActionButton({
-  variant = "primary",
-  size = "md",
-  withArrow,
-  className,
-  children,
-  onClick,
-  type = "button",
-}: StyleProps & {
-  children: ReactNode;
-  onClick?: () => void;
-  type?: "button" | "submit";
-}) {
-  return (
-    <button
-      type={type}
-      onClick={onClick}
-      className={classesFor({ variant, size, withArrow, className })}
-    >
-      <span>{children}</span>
-      {withArrow && <ArrowBadge variant={variant} />}
-    </button>
-  );
-}

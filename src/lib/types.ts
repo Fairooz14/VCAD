@@ -40,6 +40,19 @@ export interface Course {
   /** Marks the course that takes the large feature slot on the courses grid. */
   featured?: boolean;
 
+  // ── Course-details "first section" (optional; powers /courses/[slug]) ───────
+  /** 2–3 photos shown in a row under the title on the details page. Falls back
+   *  to `[image]` when not set. */
+  gallery?: string[];
+  /** Intake months shown as the "Start Date" info card, e.g. "September, February". */
+  startDate?: string;
+  /** Validating/awarding institution shown as the "Awarding Body" info card. */
+  awardingBody?: string;
+  /** Short campus/location shown as the "Locations" info card, e.g. "Canary Wharf". */
+  location?: string;
+  /** Annual UK tuition shown as the "Tuition Fee (UK)" info card, e.g. "£9,535". */
+  tuitionUK?: string;
+
   // ── Course-details content (optional; powers /courses/[slug]) ──────────────
   /** Short "why study this" selling points, shown in the Overview tab. */
   highlights?: string[];

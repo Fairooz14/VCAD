@@ -3,49 +3,43 @@ import { getFeaturedCourse } from "@/data/courses";
 import type { Course } from "@/lib/types";
 
 /**
- * The asymmetric "Explore Our Courses" grid, composed from data:
- *   feature (large)  +  two stacked cards  +  one expanded card (with badges)
- *   +  any remaining courses flow into a regular responsive grid below.
- *
- * Slots are filled by slicing the course array, so the layout keeps working as
- * courses are added, removed, or reordered:
- *   - 1 course   → feature spans full width
- *   - 2–3        → feature + stacked, expanded/overflow omitted gracefully
- *   - 4          → the exact design layout
- *   - 5+         → extras appear as standard cards underneath
+ * 3-column grid from the Figma frame, at exact card dimensions:
+ * - Left & right cards: 411 × 710
+ * - Middle column: two 411 × 343 cards stacked with a 10px gap
+ *   (343 + 343 + 10 = 696, matching the 710 height of the outer cards)
  */
 export function CoursesGrid({ courses }: { courses: Course[] }) {
   const feature = getFeaturedCourse(courses);
   const rest = courses.filter((c) => c.slug !== feature?.slug);
-  const stacked = rest.slice(0, 2);
-  const expanded = rest[2];
+  const middle1 = rest[0];
+  const middle2 = rest[1];
+  const right = rest[2];
   const overflow = rest.slice(3);
 
   if (!feature) return null;
 
   return (
-    <div className="flex flex-col gap-6">
-      {/* Feature + stacked column */}
-      <div className="grid gap-6 lg:grid-cols-3 lg:grid-rows-2">
-        <CourseCard
-          course={feature}
-          variant="feature"
-          eager
-          className={stacked.length > 0 ? "lg:col-span-2 lg:row-span-2" : "lg:col-span-3"}
-        />
-        {stacked.map((course) => (
-          <CourseCard key={course.slug} course={course} variant="stacked" />
-        ))}
+    <div className="flex flex-col gap-10 lg:gap-8">
+      {/* Main row: 3 fixed-width columns */}
+      <div className="grid gap-10 lg:grid-cols-[411px_411px_411px] lg:justify-center lg:gap-8">
+        {/* Left: feature card, 411 × 710 */}
+        <CourseCard course={feature} eager className="lg:h-[850px] lg:w-[411px]" />
+
+        {/* Middle: two stacked 411 × 343 cards with a 10px gap */}
+        <div className="flex flex-col gap-[15px] lg:w-[411px]">
+          {middle1 && <CourseCard course={middle1} className="lg:h-[343px] lg:w-[411px]" />}
+          {middle2 && <CourseCard course={middle2} className="lg:h-[343px] lg:w-[411px]" />}
+        </div>
+
+        {/* Right: fourth card, 411 × 710 */}
+        {right && <CourseCard course={right} className="lg:h-[850px] lg:w-[411px]" />}
       </div>
 
-      {/* Expanded card with school + duration badges */}
-      {expanded && <CourseCard course={expanded} variant="expanded" />}
-
-      {/* Overflow */}
+      {/* Overflow courses in a regular grid */}
       {overflow.length > 0 && (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {overflow.map((course) => (
-            <CourseCard key={course.slug} course={course} variant="default" />
+            <CourseCard key={course.slug} course={course} />
           ))}
         </div>
       )}

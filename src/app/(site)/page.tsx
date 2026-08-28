@@ -5,7 +5,6 @@ import { CampusCarousel } from "@/components/home/CampusCarousel";
 import { Testimonials } from "@/components/home/Testimonials";
 import { Partners } from "@/components/home/Partners";
 import { Stories } from "@/components/home/Stories";
-import { CTABand } from "@/components/home/CTABand";
 import { getCourses } from "@/data/courses";
 import { campuses } from "@/data/campuses";
 import { testimonials } from "@/data/testimonials";
@@ -28,7 +27,7 @@ export default async function HomePage() {
       <Testimonials testimonials={testimonials} />
       <Partners />
       <Stories stories={stories} />
-      <CTABand />
+
     </>
   );
 }

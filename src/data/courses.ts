@@ -1,5 +1,4 @@
 import type { Course } from "@/lib/types";
-import { delay } from "@/lib/utils";
 
 /**
  * The canonical course catalogue. This is the ONLY place course content lives —
@@ -14,18 +13,27 @@ import { delay } from "@/lib/utils";
  */
 export const courses: Course[] = [
   {
-    slug: "ba-hons-fashion-design",
-    level: "BA (Hons)",
-    name: "Fashion Design",
-    school: "School of Fashion",
-    duration: "3 Years",
+    slug: "bsc-hons-business-management",
+    level: "BSc (Hons)",
+    name: "Business Management",
+    school: "School of Business and Management",
+    duration: "4 Years",
     studyMode: "Full-time",
     summary:
-      "This course introduces students to creative practice, focusing on theoretical, practical, and technical components. In early stages, students develop essential skills for academic success and personal growth, emphasizing reflection and technical skills like visual communication. ",
+      "The BSc (Hons) in Business Management at Victoria College of Arts and Design blends creative thinking with real-world business skills.",
     description:
       "This course introduces students to creative practice, focusing on theoretical, practical, and technical components. In early stages, students develop essential skills for academic success and personal growth, emphasizing reflection and technical skills like visual communication.",
-    image: "/images/courses.webp",
+    image: "/images/courses/courses_3.jpg",
     featured: true,
+    gallery: [
+      "/images/courses/courses_1.jpg",
+      "/images/courses/courses_2.jpg",
+      "/images/courses/courses_3.jpg",
+    ],
+    startDate: "September, February",
+    awardingBody: "Arts University Plymouth",
+    location: "Canary Wharf",
+    tuitionUK: "£9,535",
     highlights: [
       "Industry-standard studios with pattern-cutting, print and digital suites",
       "Live briefs set with fashion houses and independent designers",
@@ -98,10 +106,19 @@ export const courses: Course[] = [
     duration: "3 Years",
     studyMode: "Full-time",
     summary:
-      "Combine storytelling, branding, and digital media to shape how fashion is communicated — from campaigns and content to the strategy behind them.",
+      "This programme provides students with a foundation in creative practice, integrating theoretical, practical, and technical elements.",
     description:
       "Fashion Media and Marketing blends creative communication with commercial strategy. You'll develop skills across content creation, brand storytelling, digital marketing, and trend analysis, working on live briefs that mirror the pace of the industry.",
-    image: "/images/courses.webp",
+    image: "/images/courses/courses_1.jpg",
+    gallery: [
+      "/images/courses/courses_2.jpg",
+      "/images/courses/courses_3.jpg",
+      "/images/courses/courses_1.jpg",
+    ],
+    startDate: "September, January",
+    awardingBody: "Ravensbourne University London",
+    location: "Canary Wharf",
+    tuitionUK: "£9,250",
     highlights: [
       "Produce campaigns and content in our media and photography studios",
       "Live briefs with brands, agencies, and fashion publications",
@@ -165,7 +182,16 @@ export const courses: Course[] = [
       "Develop a versatile design practice spanning typography, branding, and digital product, grounded in critical thinking and hands-on craft.",
     description:
       "Graphic Design equips you with a broad visual toolkit — typography, layout, identity, motion, and digital product design. Through studio projects and industry collaboration you'll learn to solve problems with clarity, craft, and conceptual rigour.",
-    image: "/images/courses.webp",
+    image: "/images/courses/courses_1.jpg",
+    gallery: [
+      "/images/courses/courses_3.jpg",
+      "/images/courses/courses_1.jpg",
+      "/images/courses/courses_2.jpg",
+    ],
+    startDate: "September, February",
+    awardingBody: "Ravensbourne University London",
+    location: "Borough, London",
+    tuitionUK: "£9,250",
     highlights: [
       "Studio-based teaching across print, digital, and motion",
       "Real client briefs and design-studio collaborations",
@@ -229,7 +255,16 @@ export const courses: Course[] = [
       "Build the core business, management, and enterprise skills to launch your career or progress to a full degree, taught with a creative-industries focus.",
     description:
       "This Certificate of Higher Education gives you a grounding in business fundamentals — management, marketing, finance, and enterprise — with a creative-industries lens. It is an ideal entry route into higher education or a stepping stone to a full degree.",
-    image: "/images/courses.webp",
+    image: "/images/courses/courses_3.jpg",
+    gallery: [
+      "/images/courses/courses_2.jpg",
+      "/images/courses/courses_1.jpg",
+      "/images/courses/courses_3.jpg",
+    ],
+    startDate: "September, February",
+    awardingBody: "Arts University Plymouth",
+    location: "Canary Wharf",
+    tuitionUK: "£7,500",
     highlights: [
       "One year to build core business and enterprise skills",
       "A creative-industries lens on management and marketing",
@@ -284,37 +319,18 @@ export const courses: Course[] = [
   },
 ];
 
-/** Options for the async accessors, used to demonstrate the loading and empty
- *  states that the design deliberately does not specify (see README). */
-export interface CourseQuery {
-  /** "slow" adds latency so `courses/loading.tsx` is visible; "empty" returns []. */
-  simulate?: "slow" | "empty";
-}
-
 /**
  * Async accessor for the full catalogue. Real products fetch courses from a CMS
  * or API; modelling this as async keeps the pages honest about loading/empty
  * states and makes swapping in a real backend a one-function change.
  */
-export async function getCourses(query: CourseQuery = {}): Promise<Course[]> {
-  if (query.simulate === "slow") await delay(1500);
-  if (query.simulate === "empty") return [];
+export async function getCourses(): Promise<Course[]> {
   return courses;
 }
 
 /** Async accessor for a single course by slug. */
 export async function getCourseBySlug(slug: string): Promise<Course | undefined> {
   return courses.find((course) => course.slug === slug);
-}
-
-/** Related courses for the details page: same school first, then others, so the
- *  strip is always populated. Excludes the current course; capped by `limit`. */
-export function getRelatedCourses(slug: string, limit = 3): Course[] {
-  const others = courses.filter((course) => course.slug !== slug);
-  const current = courses.find((course) => course.slug === slug);
-  const sameSchool = others.filter((c) => c.school === current?.school);
-  const rest = others.filter((c) => c.school !== current?.school);
-  return [...sameSchool, ...rest].slice(0, limit);
 }
 
 /** The course that occupies the large feature slot on the courses grid. Falls

@@ -1,12 +1,18 @@
 import type { Badge, NavLink, SocialLink } from "@/lib/types";
 
 /** Primary navigation shown in the header (and mobile menu). */
-export const mainNav: NavLink[] = [
-  { label: "About VCAD", href: "#about" },
-  { label: "Courses", href: "/courses" },
-  { label: "Contact Us", href: "#contact" },
-];
+// export const mainNav: NavLink[] = [
+//   { label: "About VCAD", href: "#about" },
+//   { label: "Courses", href: "/courses" },
+//   { label: "Contact Us", href: "#contact" },
+// ];
 
+export const mainNav = [
+  { label: "About VCAD", href: "/about" },
+  { label: "Courses", href: "/courses" },
+  { label: "Campuses", href: "/campuses" },
+  { label: "VCAD Life", href: "/vcad-life" },
+];
 /** Footer link columns, matching the design's 4-column layout. */
 export const footerColumns: NavLink[][] = [
   [

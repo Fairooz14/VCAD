@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/Container";
-import { PageHero } from "@/components/layout/PageHero";
-import { Pill } from "@/components/ui/Pill";
-import { CourseContent } from "@/components/course/CourseContent";
-import { CourseSidebar } from "@/components/course/CourseSidebar";
-import { RelatedCourses } from "@/components/course/RelatedCourses";
-import { CTABand } from "@/components/home/CTABand";
+import { CourseDetailTabs } from "@/components/course/CourseDetailTabs";
+import { CourseSpecBanner } from "@/components/course/CourseSpecBanner";
+import { ReadyToApplyCTA } from "@/components/course/ReadyToApplyCTA";
 import { courses, getCourseBySlug } from "@/data/courses";
 import { courseTitle } from "@/lib/utils";
 
@@ -43,51 +41,75 @@ export default async function CourseDetailPage({
   const course = await getCourseBySlug(slug);
   if (!course) notFound();
 
+  const title = courseTitle(course);
+  const gallery = course.gallery ?? [course.image];
+
   return (
     <>
-      <PageHero
-        eyebrow={course.level}
-        title={course.name}
-        description={course.summary}
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Courses", href: "/courses" },
-          { label: courseTitle(course), href: `/courses/${course.slug}` },
-        ]}
-      >
-        <div className="flex flex-wrap gap-2">
-          <Pill tone="outline">{course.school}</Pill>
-          <Pill tone="outline">{course.duration}</Pill>
-          <Pill tone="outline">{course.studyMode}</Pill>
-        </div>
-      </PageHero>
+      {/* First section: centered breadcrumb + title + description + image row. */}
+      <section className="relative z-10 overflow-hidden pt-28 sm:pt-32 lg:pt-36">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-10 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-magenta/15 blur-[140px]"
+        />
+        <Container className="relative flex flex-col items-center gap-6 text-center">
+          <nav aria-label="Breadcrumb">
+            <ol className="flex flex-wrap items-center justify-center gap-2 text-sm text-text/50">
+              <li>
+                <Link href="/" className="transition hover:text-white">
+                  Home
+                </Link>
+              </li>
+              <li aria-hidden>/</li>
+              <li>
+                <Link href="/courses" className="transition hover:text-white">
+                  Courses
+                </Link>
+              </li>
+              <li aria-hidden>/</li>
+              <li className="text-text/80">{title}</li>
+            </ol>
+          </nav>
 
-      {/* Course banner image (the page's LCP → eager). */}
-      <Container>
-        <div className="relative aspect-[16/9] overflow-hidden rounded-card border border-line sm:aspect-[21/9]">
-          <Image
-            src={course.image}
-            alt={courseTitle(course)}
-            fill
-            sizes="(max-width: 1280px) 100vw, 1280px"
-            className="object-cover"
-            loading="eager"
-            fetchPriority="high"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-base/40 to-transparent" />
-        </div>
-      </Container>
+          <h1 className="max-w-4xl text-balance text-4xl font-bold leading-[1.05] sm:text-5xl lg:text-6xl">
+            {title}
+          </h1>
 
-      {/* Tabbed content + key-facts sidebar. */}
-      <Container className="py-14 lg:py-20">
-        <div className="grid gap-10 lg:grid-cols-[1fr_340px] lg:gap-14">
-          <CourseContent course={course} />
-          <CourseSidebar course={course} />
-        </div>
-      </Container>
+          <p className="max-w-3xl text-pretty text-base text-text/75 sm:text-lg">
+            {course.description}
+          </p>
+        </Container>
 
-      <RelatedCourses slug={course.slug} />
-      <CTABand />
+        {/* Image row */}
+        <Container className="relative mt-10 lg:mt-12">
+          <div className="grid gap-5 sm:grid-cols-3 lg:gap-6">
+            {gallery.slice(0, 3).map((src, i) => (
+              <div
+                key={`${src}-${i}`}
+                className="relative aspect-[4/3] overflow-hidden rounded-[20px] border border-line"
+              >
+                <Image
+                  src={src}
+                  alt={`${title} — image ${i + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 411px"
+                  className="object-cover"
+                  {...(i === 0 ? { loading: "eager" as const, fetchPriority: "high" as const } : {})}
+                />
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Pill tabs — "/ Course Overview" reveals the Course Information grid. */}
+      <CourseDetailTabs course={course} />
+
+      {/* Course Specification download banner */}
+      <CourseSpecBanner />
+
+      {/* Ready to Apply CTA */}
+      <ReadyToApplyCTA />
     </>
   );
 }

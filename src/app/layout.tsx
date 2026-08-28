@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
 // Inter is the design's typeface throughout. Loaded as a variable font and
@@ -28,13 +27,15 @@ export const metadata: Metadata = {
   },
 };
 
+// Header now lives per-section instead of here: `app/(site)/layout.tsx` renders
+// the homepage Header, and `app/courses/layout.tsx` renders Courses_header —
+// so each section gets its own header without one stomping on the other.
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={inter.variable} data-scroll-behavior="smooth">
       <body className="min-h-screen antialiased">
-        <Header />
         <main id="main">{children}</main>
         <Footer />
       </body>

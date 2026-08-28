@@ -1,14 +1,31 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { ArrowRight } from "@/lib/icons";
 
-/**
- * Homepage hero — built to the Figma frame. The left column carries the
- * "WELCOME TO VCAD" display headline, the lead paragraph and the single
- * "Explore Courses" call to action; the right column is the design's
- * transparent discipline collage (the LCP image, so it is preloaded).
- */
+
+function ArrowIcon({ direction }: { direction: "left" | "right" }) {
+  return (
+    <span
+      aria-hidden
+      style={{
+        display: "inline-block",
+        width: "22px",
+        height: "22px",
+        backgroundColor: "currentColor",
+        maskImage: `url(/images/arrow_${direction}.png)`,
+        maskSize: "contain",
+        maskRepeat: "no-repeat",
+        maskPosition: "center",
+        WebkitMaskImage: `url(/images/arrow_${direction}.png)`,
+        WebkitMaskSize: "contain",
+        WebkitMaskRepeat: "no-repeat",
+        WebkitMaskPosition: "center",
+      }}
+    />
+  );
+}
+
+
 export function Hero() {
   return (
     <section className="relative overflow-hidden pt-28 pb-16 sm:pt-32 lg:pt-36 lg:pb-24">
@@ -35,8 +52,10 @@ export function Hero() {
             className="group mt-8 inline-flex h-14 w-80 max-w-full items-center justify-between gap-[10px] self-start  border border-[#ebecf3] bg-card px-4 text-base font-medium text-white transition hover:border-pink hover:bg-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink sm:mt-9"
           >
             Explore Courses
-            <ArrowRight className="size-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
+            {/* <ArrowRight className="size-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1" /> */}
+            <ArrowIcon direction="right" />
           </Link>
+          
         </div>
 
         <div className="relative">
